@@ -2,45 +2,57 @@ import react, {useReducer, useEffect} from 'react';
 import {
 	Text,
 	View,
-	TouchableHighlight,
+	TouchableWithoutFeedback,
 	GestureResponderEvent,
-	StyleSheet
+	StyleSheet,
+	Image,
 } from 'react-native';
 import {TimerProps} from '../../navigator/index.d';
-import {TimerReducer, initialTimerState} from "../../reducers/timerReducer"
-import {scheduleNotify} from "../../services/timerService"
+import {TimerReducer, initialTimerState} from '../../reducers/timerReducer';
+import {scheduleNotify, toggleImage} from '../../services/timerService';
+
 function Timer({route, navigation}: TimerProps): JSX.Element {
-
-const [timer, dispatch] = useReducer (TimerReducer, initialTimerState)
-
+	const [timerState, dispatch] = useReducer(TimerReducer, initialTimerState);
+	/*useEffect(() => {
+		setInterval(() => {
+			scheduleNotify(0);
+		}, 4000);
+	}, []);*/
 	return (
 		<View style={TimerStyle.container}>
-			<TouchableHighlight
-				onPress={(event: GestureResponderEvent): void => {
-					dispatch({
-						type:"SET_NOTIFY_TIME",
-						payload : "new value"
-					})
-					scheduleNotify(0)
-				}}>
-				<Text style={TimerStyle.text}>hello im in timer</Text>
-			</TouchableHighlight>
+			<View style={TimerStyle.image_container}>
+				<TouchableWithoutFeedback
+					onPress={(event: GestureResponderEvent): void => {
+						toggleImage(dispatch, timerState.imagePath);
+					}}>
+					<Image
+						style={TimerStyle.image}
+						resizeMode={'cover'}
+						source={timerState.imagePath}
+					/>
+				</TouchableWithoutFeedback>
+			</View>
 		</View>
 	);
 }
 
 const TimerStyle = StyleSheet.create({
-	container:{
-		display:"flex",
-		height: "100%",
-		justifyContent:"center",
-		alignItems:"center",
-		backgroundColor:"white"
+	container: {
+		display: 'flex',
+		height: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'white',
+		padding: 8,
 	},
-	text:{
-		color: "red"
-	}
-
-})
+	image_container: {
+		height: 400,
+		width: '100%',
+	},
+	image: {
+		width: '100%',
+		height: '100%',
+	},
+});
 
 export default Timer;

@@ -1,5 +1,7 @@
+import {imagePath} from '../helpers/constants';
 type TimerState ={
 	notifyAt:string,
+	imagePath:imagePath,
 }
 type IAction ={
 	type: string,

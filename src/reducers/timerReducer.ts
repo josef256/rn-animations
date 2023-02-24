@@ -1,6 +1,9 @@
 import {IAction, TimerState} from './reducers.d';
+import {imagePath} from "../helpers/constants"
+
 const initialTimerState: TimerState = {
 	notifyAt: "default",
+	imagePath: imagePath.empty
 };
 function TimerReducer(
 	state: TimerState = initialTimerState,
@@ -12,6 +15,11 @@ function TimerReducer(
 				...state,
 				notifyAt: action.payload,
 			};
+		case "TOGGLE_IMAGE_PATH":
+			return {
+				...state,
+				imagePath:action.payload
+			}
 		default:
 			return state;
 	} 
