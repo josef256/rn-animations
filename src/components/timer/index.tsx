@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {TimerProps} from '../../navigator/index.d';
 import {TimerReducer, initialTimerState} from '../../reducers/timerReducer';
-import {scheduleNotify, toggleImage} from '../../services/timerService';
+import {scheduleNotify, toggleImage, createTriggerNotify} from '../../services/timerService';
 
 function Timer({route, navigation}: TimerProps): JSX.Element {
 	const [timerState, dispatch] = useReducer(TimerReducer, initialTimerState);
@@ -24,6 +24,7 @@ function Timer({route, navigation}: TimerProps): JSX.Element {
 				<TouchableWithoutFeedback
 					onPress={(event: GestureResponderEvent): void => {
 						toggleImage(dispatch, timerState.imagePath);
+						createTriggerNotify()
 					}}>
 					<Image
 						style={TimerStyle.image}

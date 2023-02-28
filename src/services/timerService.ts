@@ -1,7 +1,8 @@
-import notifee from '@notifee/react-native';
+import notifee, {TimestampTrigger, TriggerType} from '@notifee/react-native';
 import {Inotification} from './services.d';
 import {IAction} from '../reducers/reducers.d';
 import {imagePath} from '../helpers/constants';
+import {getDate} from '../helpers';
 import {Dispatch} from 'react';
 async function scheduleNotify(time: number): Promise<void> {
 	await getNotifyPermission();
@@ -32,10 +33,30 @@ async function displayNotify(data: Inotification): Promise<void> {
 		android: data.android,
 	});
 }
+async function createTriggerNotify(): Promise<void> {
+	const date: Date = getDate();
+	const trigger: TimestampTrigger = {
+		type: TriggerType.TIMESTAMP,
+		timestamp: date.getTime(),
+	};
+	await notifee.createTriggerNotification(
+		{
+			title: 'Did you forget something ?',
+			body: 'Drink some water',
+		},
+		trigger,
+	);
+}
 function toggleImage(dispatch: Dispatch<IAction>, data: imagePath): void {
 	dispatch({
 		type: 'TOGGLE_IMAGE_PATH',
 		payload: data == imagePath.filled ? imagePath.empty : imagePath.filled,
 	});
 }
-export {scheduleNotify, getNotifyPermission, createChannelNotify, toggleImage};
+export {
+	scheduleNotify,
+	getNotifyPermission,
+	createChannelNotify,
+	toggleImage,
+	createTriggerNotify,
+};
