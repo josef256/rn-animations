@@ -5,7 +5,7 @@ function getDate():Date{
 		date.setHours(9)
 		date.setMinutes(22)
 	}else {
-		date.setMinutes(date.getMinutes()+22)
+		date.setMinutes(date.getMinutes()+1)
 	}
 	return date
 }

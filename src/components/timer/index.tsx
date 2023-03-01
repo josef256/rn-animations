@@ -9,23 +9,27 @@ import {
 } from 'react-native';
 import {TimerProps} from '../../navigator/index.d';
 import {TimerReducer, initialTimerState} from '../../reducers/timerReducer';
-import {scheduleNotify, toggleImage, createTriggerNotify} from '../../services/timerService';
+import {createTriggerNotify} from '../../services/notifyService';
+import {
+	notifyBackgroundListener,
+	notifyForegroundListener,
+} from '../../services/notifyService';
 
 function Timer({route, navigation}: TimerProps): JSX.Element {
 	const [timerState, dispatch] = useReducer(TimerReducer, initialTimerState);
-	/*useEffect(() => {
-		setInterval(() => {
-			scheduleNotify(0);
-		}, 4000);
-	}, []);*/
+
+	const onPotionPress = (): void => {
+		if (!timerState.potionStatus)
+			createTriggerNotify();
+	};
+	useEffect(() => {
+		notifyBackgroundListener(dispatch);
+		notifyForegroundListener(dispatch);
+	}, []);
 	return (
 		<View style={TimerStyle.container}>
 			<View style={TimerStyle.image_container}>
-				<TouchableWithoutFeedback
-					onPress={(event: GestureResponderEvent): void => {
-						toggleImage(dispatch, timerState.imagePath);
-						createTriggerNotify()
-					}}>
+				<TouchableWithoutFeedback onPress={onPotionPress}>
 					<Image
 						style={TimerStyle.image}
 						resizeMode={'cover'}

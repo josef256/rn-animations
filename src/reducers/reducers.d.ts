@@ -1,7 +1,7 @@
-import {imagePath} from '../helpers/constants';
+import {IimagePath, IpotionStatus} from '../helpers/constants';
 type TimerState ={
-	notifyAt:string,
-	imagePath:imagePath,
+	potionStatus:IpotionStatus,
+	imagePath:IimagePath,
 }
 type IAction ={
 	type: string,

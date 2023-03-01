@@ -1,19 +1,19 @@
 import {IAction, TimerState} from './reducers.d';
-import {imagePath} from "../helpers/constants"
+import {IimagePath} from "../helpers/constants"
 
 const initialTimerState: TimerState = {
-	notifyAt: "default",
-	imagePath: imagePath.empty
+	potionStatus: 0,
+	imagePath: IimagePath.empty
 };
 function TimerReducer(
 	state: TimerState = initialTimerState,
 	action: IAction,
 ): TimerState {
 	switch (action.type) {
-		case 'SET_NOTIFY_TIME':
+		case 'SET_POTION_STATUS':
 			return {
 				...state,
-				notifyAt: action.payload,
+				potionStatus: action.payload,
 			};
 		case "TOGGLE_IMAGE_PATH":
 			return {
