@@ -7,7 +7,6 @@ function toggleImage(
 	dispatch: Dispatch<IAction>,
 	potionStatus: IpotionStatus,
 ): void {
-	console.log('im changing img', potionStatus);
 	dispatch({
 		type: 'TOGGLE_IMAGE_PATH',
 		payload: potionStatus ? IimagePath.filled : IimagePath.empty,

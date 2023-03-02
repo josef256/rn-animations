@@ -8,7 +8,7 @@ import {
 	Image,
 } from 'react-native';
 import {TimerProps} from '../../navigator/index.d';
-import {TimerReducer, initialTimerState} from '../../reducers/timerReducer';
+import {AppReducer, appInitialState} from '../../reducers';
 import {createTriggerNotify} from '../../services/notifyService';
 import {
 	notifyBackgroundListener,
@@ -16,11 +16,10 @@ import {
 } from '../../services/notifyService';
 
 function Timer({route, navigation}: TimerProps): JSX.Element {
-	const [timerState, dispatch] = useReducer(TimerReducer, initialTimerState);
+	const [appState, dispatch] = useReducer(AppReducer, appInitialState);
 
 	const onPotionPress = (): void => {
-		if (!timerState.potionStatus)
-			createTriggerNotify();
+		if (!appState.potionStatus) createTriggerNotify();
 	};
 	useEffect(() => {
 		notifyBackgroundListener(dispatch);
@@ -33,7 +32,7 @@ function Timer({route, navigation}: TimerProps): JSX.Element {
 					<Image
 						style={TimerStyle.image}
 						resizeMode={'cover'}
-						source={timerState.imagePath}
+						source={appState.imagePath}
 					/>
 				</TouchableWithoutFeedback>
 			</View>
