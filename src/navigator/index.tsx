@@ -2,7 +2,7 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Timer from '../components/timer';
 import Settings from '../components/settings';
-import SettingsButton from "../components/shared/SettingsButton"
+import SettingsButton from '../components/shared/SettingsButton';
 import {StackNavigatorParamList} from './index.d';
 function Navigator(): JSX.Element {
   const stack = createNativeStackNavigator<StackNavigatorParamList>();
@@ -14,10 +14,11 @@ function Navigator(): JSX.Element {
         options={{
           title: '',
           headerStyle: {
-            backgroundColor: 'transparent',
+            backgroundColor: '#f7fafc',
           },
-          headerRight:()=>(<SettingsButton/>)
-
+          headerShadowVisible: false, // applied here
+          headerBackTitleVisible: false,
+          headerRight: () => <SettingsButton />,
         }}
       />
       <stack.Screen
@@ -26,8 +27,10 @@ function Navigator(): JSX.Element {
         options={{
           title: 'Settings',
           headerStyle: {
-            backgroundColor: 'transparent',
+            backgroundColor: '#f7fafc',
           },
+          headerShadowVisible: false, // applied here
+          headerBackTitleVisible: false,
         }}
       />
     </stack.Navigator>

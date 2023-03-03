@@ -46,7 +46,7 @@ const TimerStyle = StyleSheet.create({
 		height: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'white',
+		backgroundColor: '#f7fafc',
 		padding: 8,
 	},
 	image_container: {

@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useReducer, useEffect} from 'react';
 import {
 	View,
 	StyleSheet,
@@ -7,18 +7,28 @@ import {
 	TouchableWithoutFeedback,
 	GestureResponderEvent,
 	TextInputProps,
+	NativeSyntheticEvent,
+	TextInputChangeEventData,
 } from 'react-native';
 import {SettingsProps} from '../../navigator/index.d';
+import {AppReducer, appInitialState} from '../../reducers';
+import {setScheduleTime} from '../../services/timerService';
 function Settings({route, navigation}: SettingsProps): JSX.Element {
-	//fix type
-	const timerRef = useRef<any>({});
+	const timerRef = useRef<TextInput>(null);
+	const [appState, dispatch] = useReducer(AppReducer, appInitialState);
+
+	useEffect(() => {
+	}, [appState.scheduleTime]);
 	function timerPress(e: GestureResponderEvent): void {
 		if (timerRef.current) timerRef.current.focus();
+	}
+	function onTimerInputChange(text: string): void {
+		setScheduleTime(dispatch, text);
 	}
 	return (
 		<View style={style.container}>
 			<View style={style.itemWrapper}>
-				<Text>display notification every : </Text>
+				<Text>Display notification every : </Text>
 				<TouchableWithoutFeedback onPress={timerPress}>
 					<View style={style.inputWrapper}>
 						<TextInput
@@ -26,6 +36,8 @@ function Settings({route, navigation}: SettingsProps): JSX.Element {
 							style={style.inputStyle}
 							inputMode={'decimal'}
 							maxLength={2}
+							onChangeText={onTimerInputChange}
+							value={appState.scheduleTime.toString()}
 						/>
 						<Text>min</Text>
 					</View>
@@ -37,8 +49,9 @@ function Settings({route, navigation}: SettingsProps): JSX.Element {
 
 const style = StyleSheet.create({
 	container: {
-		backgroundColor: 'red',
 		padding: 12,
+		height: '100%',
+		backgroundColor: '#f7fafc',
 	},
 	itemWrapper: {
 		flexDirection: 'row',
@@ -46,18 +59,13 @@ const style = StyleSheet.create({
 		alignItems: 'center',
 	},
 	inputWrapper: {
-		padding: 2,
+		padding: 8,
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		flexDirection: 'row',
-		borderWidth: 2,
-		borderColor: 'black',
-		width: 50,
-		height: 30,
+		width: 70,
 		boxSizing: 'content-box',
 	},
-	inputStyle: {
-		backgroundColor: 'orange',
-	},
+	inputStyle: {},
 });
 export default Settings;

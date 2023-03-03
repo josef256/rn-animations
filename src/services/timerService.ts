@@ -16,5 +16,10 @@ function toggleImage(
 		payload: potionStatus,
 	});
 }
-
-export {toggleImage};
+function setScheduleTime(dispatch: Dispatch<IAction>, data: string): void {
+	dispatch({
+		type: 'SET_SCHEDULE_TIME',
+		payload: data,
+	});
+}
+export {toggleImage, setScheduleTime};
