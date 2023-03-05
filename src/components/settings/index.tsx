@@ -1,4 +1,4 @@
-import React, {useRef, useReducer, useEffect} from 'react';
+import React, {useRef, useReducer, useEffect, useContext} from 'react';
 import {
 	View,
 	StyleSheet,
@@ -11,14 +11,13 @@ import {
 	TextInputChangeEventData,
 } from 'react-native';
 import {SettingsProps} from '../../navigator/index.d';
-import {AppReducer, appInitialState} from '../../reducers';
 import {setScheduleTime} from '../../services/timerService';
+import AppContext from '../../helpers/appContext';
+
 function Settings({route, navigation}: SettingsProps): JSX.Element {
 	const timerRef = useRef<TextInput>(null);
-	const [appState, dispatch] = useReducer(AppReducer, appInitialState);
-
-	useEffect(() => {
-	}, [appState.scheduleTime]);
+	const {appState, dispatch} = useContext(AppContext);
+	
 	function timerPress(e: GestureResponderEvent): void {
 		if (timerRef.current) timerRef.current.focus();
 	}

@@ -1,4 +1,3 @@
-import {getDate} from '../helpers';
 import {Dispatch} from 'react';
 import notifee, {
 	TimestampTrigger,
@@ -8,7 +7,7 @@ import notifee, {
 import {Inotification} from './services.d';
 import {IAction} from '../reducers/reducers.d';
 import {IpotionStatus} from '../helpers/constants';
-import {toggleImage} from './timerService';
+import {toggleImage, getDate} from './timerService';
 async function scheduleNotify(time: number): Promise<void> {
 	await getNotifyPermission();
 	const channelId = await createChannelNotify('Default Channel', 'default');

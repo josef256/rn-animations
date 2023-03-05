@@ -1,4 +1,4 @@
-import react, {useReducer, useEffect} from 'react';
+import react, {useContext, useEffect, Dispatch} from 'react';
 import {
 	Text,
 	View,
@@ -8,19 +8,21 @@ import {
 	Image,
 } from 'react-native';
 import {TimerProps} from '../../navigator/index.d';
-import {AppReducer, appInitialState} from '../../reducers';
+import {IAction, IappState} from '../../reducers/reducers.d';
 import {createTriggerNotify} from '../../services/notifyService';
 import {
 	notifyBackgroundListener,
 	notifyForegroundListener,
 } from '../../services/notifyService';
+import AppContext from '../../helpers/appContext';
 
 function Timer({route, navigation}: TimerProps): JSX.Element {
-	const [appState, dispatch] = useReducer(AppReducer, appInitialState);
+	const {appState, dispatch} = useContext(AppContext);
 
 	const onPotionPress = (): void => {
 		if (!appState.potionStatus) createTriggerNotify();
 	};
+
 	useEffect(() => {
 		notifyBackgroundListener(dispatch);
 		notifyForegroundListener(dispatch);
