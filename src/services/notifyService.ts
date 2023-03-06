@@ -37,9 +37,9 @@ async function displayNotify(data: Inotification): Promise<void> {
 		android: data.android,
 	});
 }
-async function createTriggerNotify(): Promise<void> {
+async function createTriggerNotify(scheduleTime:number): Promise<void> {
 	await getNotifyPermission();
-	const date: Date = getDate();
+	const date: Date = getDate(scheduleTime);
 	const trigger: TimestampTrigger = {
 		type: TriggerType.TIMESTAMP,
 		timestamp: date.getTime(),
@@ -52,16 +52,12 @@ async function createTriggerNotify(): Promise<void> {
 		trigger,
 	);
 }
-async function notifyBackgroundListener(
-	dispatch: Dispatch<IAction>,
-): Promise<void> {
+function notifyBackgroundListener(dispatch: Dispatch<IAction>): void {
 	notifee.onBackgroundEvent(async ({type, detail}) => {
 		console.log('im a background event', type, detail);
 	});
 }
-async function notifyForegroundListener(
-	dispatch: Dispatch<IAction>,
-): Promise<void> {
+function notifyForegroundListener(dispatch: Dispatch<IAction>): void {
 	notifee.onForegroundEvent(({type, detail}) => {
 		switch (type) {
 			case EventType.DELIVERED:

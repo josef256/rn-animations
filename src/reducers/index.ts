@@ -5,6 +5,10 @@ const appInitialState: IappState = {
 	potionStatus: 0,
 	imagePath: IimagePath.empty,
 	scheduleTime: 20,
+	sleepTime: {
+		from: 22,
+		to: 9,
+	},
 };
 function AppReducer(
 	state: IappState = appInitialState,
@@ -25,6 +29,11 @@ function AppReducer(
 			return {
 				...state,
 				scheduleTime: action.payload,
+			};
+		case 'SET_SLEEP_TIME':
+			return {
+				...state,
+				sleepTime: action.payload,
 			};
 		default:
 			return state;

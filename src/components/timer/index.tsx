@@ -20,7 +20,7 @@ function Timer({route, navigation}: TimerProps): JSX.Element {
 	const {appState, dispatch} = useContext(AppContext);
 
 	const onPotionPress = (): void => {
-		if (!appState.potionStatus) createTriggerNotify();
+		if (!appState.potionStatus) createTriggerNotify(appState.scheduleTime);
 	};
 
 	useEffect(() => {

@@ -22,15 +22,16 @@ function setScheduleTime(dispatch: Dispatch<IAction>, data: string): void {
 		payload: data,
 	});
 }
-function getDate():Date{
-	const date:Date = new Date()
-	if(date.getHours()>=22 && date.getHours()<9){
-		date.setHours(9)
-		date.setMinutes(22)
-	}else {
-		date.setMinutes(date.getMinutes()+1)
+function getDate(scheduleTime: number): Date {
+	console.log('scheduled', scheduleTime);
+	const date: Date = new Date();
+	if (date.getHours() >= 22 && date.getHours() < 9) {
+		date.setHours(9);
+		date.setMinutes(22);
+	} else {
+		date.setMinutes(date.getMinutes() + scheduleTime);
 	}
-	return date
+	return date;
 }
 
 export {toggleImage, setScheduleTime, getDate};

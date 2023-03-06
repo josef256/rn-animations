@@ -17,7 +17,7 @@ import AppContext from '../../helpers/appContext';
 function Settings({route, navigation}: SettingsProps): JSX.Element {
 	const timerRef = useRef<TextInput>(null);
 	const {appState, dispatch} = useContext(AppContext);
-	
+
 	function timerPress(e: GestureResponderEvent): void {
 		if (timerRef.current) timerRef.current.focus();
 	}
@@ -39,6 +39,31 @@ function Settings({route, navigation}: SettingsProps): JSX.Element {
 							value={appState.scheduleTime.toString()}
 						/>
 						<Text>min</Text>
+					</View>
+				</TouchableWithoutFeedback>
+			</View>
+			<View style={style.itemWrapper}>
+				<Text>Sleep Time : </Text>
+				<TouchableWithoutFeedback onPress={timerPress}>
+					<View style={style.inputWrapper}>
+					<Text>From</Text>
+						<TextInput
+							ref={timerRef}
+							style={style.inputStyle}
+							inputMode={'decimal'}
+							maxLength={2}
+							onChangeText={onTimerInputChange}
+							value={appState.scheduleTime.toString()}
+						/>
+						<Text>To</Text>
+						<TextInput
+							ref={timerRef}
+							style={style.inputStyle}
+							inputMode={'decimal'}
+							maxLength={2}
+							onChangeText={onTimerInputChange}
+							value={appState.scheduleTime.toString()}
+						/>
 					</View>
 				</TouchableWithoutFeedback>
 			</View>

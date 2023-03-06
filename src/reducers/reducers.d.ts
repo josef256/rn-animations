@@ -3,6 +3,10 @@ type IappState = {
 	potionStatus: IpotionStatus;
 	imagePath: IimagePath;
 	scheduleTime: number;
+	sleepTime: {
+		from: number;
+		to: number;
+	};
 };
 type IAction = {
 	type: string;
