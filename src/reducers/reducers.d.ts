@@ -1,5 +1,5 @@
 import {IimagePath, IpotionStatus} from '../helpers/constants';
-type IappState = {
+type IAppState = {
 	potionStatus: IpotionStatus;
 	imagePath: IimagePath;
 	scheduleTime: number;
@@ -9,8 +9,8 @@ type IappState = {
 	};
 };
 type IAction = {
-	type: string;
+	type: string; 
 	payload: unkown;
 };
 type ITimerReducer<T, L> = (a: T, b: L) => {};
-export {IappState, IAction, ITimerReducer};
+export {IAppState, IAction, ITimerReducer};

@@ -7,16 +7,17 @@ import {
 	StyleSheet,
 	Image,
 } from 'react-native';
-import {TimerProps} from '../../navigator/index.d';
-import {IAction, IappState} from '../../reducers/reducers.d';
+import {ITimerProps} from '../../navigator/index.d';
+import {IAction, IAppState} from '../../reducers/reducers.d';
 import {createTriggerNotify} from '../../services/notifyService';
 import {
 	notifyBackgroundListener,
 	notifyForegroundListener,
 } from '../../services/notifyService';
 import AppContext from '../../helpers/appContext';
-
-function Timer({route, navigation}: TimerProps): JSX.Element {
+import AnimationStyle from '../shared/AnimationStyle';
+import DropDownSelect from '../shared/DropDownSelect';
+function Timer({route, navigation}: ITimerProps): JSX.Element {
 	const {appState, dispatch} = useContext(AppContext);
 
 	const onPotionPress = (): void => {
@@ -29,6 +30,7 @@ function Timer({route, navigation}: TimerProps): JSX.Element {
 	}, []);
 	return (
 		<View style={TimerStyle.container}>
+			<DropDownSelect display={true} data={['hello', 'world', "waloo"]} />
 			<View style={TimerStyle.image_container}>
 				<TouchableWithoutFeedback onPress={onPotionPress}>
 					<Image

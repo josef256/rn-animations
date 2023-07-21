@@ -10,11 +10,12 @@ import {
 	NativeSyntheticEvent,
 	TextInputChangeEventData,
 } from 'react-native';
-import {SettingsProps} from '../../navigator/index.d';
+import {ISettingsProps} from '../../navigator/index.d';
 import {setScheduleTime} from '../../services/timerService';
 import AppContext from '../../helpers/appContext';
+import DropDownSelect from '../shared/DropDownSelect';
 
-function Settings({route, navigation}: SettingsProps): JSX.Element {
+function Settings({route, navigation}: ISettingsProps): JSX.Element {
 	const timerRef = useRef<TextInput>(null);
 	const {appState, dispatch} = useContext(AppContext);
 
@@ -46,14 +47,14 @@ function Settings({route, navigation}: SettingsProps): JSX.Element {
 				<Text>Sleep Time : </Text>
 				<TouchableWithoutFeedback onPress={timerPress}>
 					<View style={style.inputWrapper}>
-					<Text>From</Text>
+						<Text>From</Text>
 						<TextInput
 							ref={timerRef}
 							style={style.inputStyle}
 							inputMode={'decimal'}
 							maxLength={2}
 							onChangeText={onTimerInputChange}
-							value={appState.scheduleTime.toString()}
+							value={appState.sleepTime.from.toString()}
 						/>
 						<Text>To</Text>
 						<TextInput
@@ -62,11 +63,12 @@ function Settings({route, navigation}: SettingsProps): JSX.Element {
 							inputMode={'decimal'}
 							maxLength={2}
 							onChangeText={onTimerInputChange}
-							value={appState.scheduleTime.toString()}
+							value={appState.sleepTime.to.toString()}
 						/>
 					</View>
 				</TouchableWithoutFeedback>
 			</View>
+			<DropDownSelect display={true} data={['hi', 'henlo']} />
 		</View>
 	);
 }

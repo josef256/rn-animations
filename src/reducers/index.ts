@@ -1,7 +1,7 @@
-import {IAction, IappState} from './reducers.d';
+import {IAction, IAppState} from './reducers.d';
 import {IimagePath} from '../helpers/constants';
 
-const appInitialState: IappState = {
+const appInitialState: IAppState = {
 	potionStatus: 0,
 	imagePath: IimagePath.empty,
 	scheduleTime: 20,
@@ -11,9 +11,9 @@ const appInitialState: IappState = {
 	},
 };
 function AppReducer(
-	state: IappState = appInitialState,
+	state: IAppState = appInitialState,
 	action: IAction,
-): IappState {
+): IAppState {
 	switch (action.type) {
 		case 'SET_POTION_STATUS':
 			return {

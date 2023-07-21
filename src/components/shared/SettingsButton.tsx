@@ -1,10 +1,10 @@
 import React from 'react';
 import {TouchableOpacity, Text, GestureResponderEvent} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {StackNavigatorParamList} from "../../navigator/index.d"
+import {IStackNavigatorParamList} from "../../navigator/index.d"
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-type stackNavigationType = NativeStackNavigationProp<StackNavigatorParamList>
+type stackNavigationType = NativeStackNavigationProp<IStackNavigatorParamList>
 function SettingsButton(): JSX.Element {
 	const navigation = useNavigation<stackNavigationType>();
 	return (

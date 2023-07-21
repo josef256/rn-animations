@@ -2,12 +2,18 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Timer from '../components/timer';
 import Settings from '../components/settings';
+import Tabs from '../components/tabs';
+import Cards from '../components/cards';
 import SettingsButton from '../components/shared/SettingsButton';
-import {StackNavigatorParamList} from './index.d';
+import {IStackNavigatorParamList} from './index.d';
 function Navigator(): JSX.Element {
-  const stack = createNativeStackNavigator<StackNavigatorParamList>();
+  const stack = createNativeStackNavigator<IStackNavigatorParamList>();
   return (
-    <stack.Navigator initialRouteName="Timer">
+    <stack.Navigator
+      initialRouteName="Cards"
+      screenOptions={{headerShown: false}}>
+      <stack.Screen name="Tabs" component={Tabs} />
+      <stack.Screen name="Cards" component={Cards} />
       <stack.Screen
         name="Timer"
         component={Timer}

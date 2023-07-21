@@ -1,10 +1,17 @@
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
-type StackNavigatorParamList = {
-	Timer:  undefined;
+type IStackNavigatorParamList = {
+	Timer: undefined;
 	Settings: undefined;
+	Tabs: undefined;
+	Cards: undefined;
 };
 
-type TimerProps = NativeStackScreenProps<StackNavigatorParamList, 'Timer'>;
-type SettingsProps = NativeStackScreenProps<StackNavigatorParamList, 'Settings'>;
-export {StackNavigatorParamList, TimerProps, SettingsProps};
+type ITimerProps = NativeStackScreenProps<IStackNavigatorParamList, 'Timer'>;
+type ISettingsProps = NativeStackScreenProps<
+	IStackNavigatorParamList,
+	'Settings'
+>;
+type ITabsProps = NativeStackScreenProps<IStackNavigatorParamList, 'Tabs'>;
+type ICardsProps = NativeStackScreenProps<IStackNavigatorParamList, 'Cards'>;
+export {IStackNavigatorParamList, ITimerProps, ISettingsProps, ITabsProps, ICardsProps};
