@@ -1,84 +1,106 @@
-import React, {useRef} from 'react';
+import React, {useRef, useLayoutEffect, useEffect} from 'react';
 import {View, Text, PanResponder, Animated, Dimensions} from 'react-native';
 const Cards: React.FC<{}> = (): JSX.Element => {
 	const translate = useRef(new Animated.ValueXY()).current;
-	const textRef = useRef(null);
-	const cords = useRef<{viewX: number; viewY: number}>({
-		viewX: 0,
-		viewY: 0,
-		pageY1: 0,
-		pageY2: 0,
-		width: 0,
-	}).current;
 	const {width, height} = Dimensions.get('window');
+	const cards = [
+		{
+			color: 'red',
+			space: 10,
+			translate: useRef(new Animated.ValueXY()).current,
+		},
+		{
+			color: 'blue',
+			space: 20,
+			translate: useRef(new Animated.ValueXY()).current,
+		},
+		{
+			color: 'green',
+			space: 30,
+			translate: useRef(new Animated.ValueXY()).current,
+		},
+	];
+
 	const panResponder = useRef(
-		PanResponder.create({
-			onStartShouldSetPanResponder: (evt, gestureState) => true,
-			onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
-			onMoveShouldSetPanResponder: (evt, gestureState) => true,
-			onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
-			onPanResponderMove: (evt, gestureState) => {
-				/*Animated.event([null, {dx: translate.x, dy: translate.y}], {
-					useNativeDriver: false,
-				})(evt, gestureState);*/
-			},
-			onPanResponderRelease: (evt, gestureState) => {
-				//withiout extract base value = 0 so it jump to initial pos
-				//with extract base value = current offset (acumulated distance)
-				console.log('trznslate', cords.viewX);
-				Animated.spring(translate, {
-					toValue: {
-						x: cords.viewX,
-						y: cords.viewY,
-					},
-					speed: 200,
-					useNativeDriver: true,
-				}).start();
-			},
-		}),
+		cards.map(card =>
+			PanResponder.create({
+				onStartShouldSetPanResponder: (evt, gestureState) => true,
+				onStartShouldSetPanResponderCapture: (evt, gestureState) => true,
+				onMoveShouldSetPanResponder: (evt, gestureState) => true,
+				onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+				onPanResponderGrant: (evt, gestureState) => {
+					card.translate.setOffset({x: card.space, y: 0});
+				},
+				onPanResponderMove: (evt, gestureState) => {
+					//card.translate.setOffset({x: card.space, y: 0});
+					Animated.event([null, {dx: card.translate.x}], {
+						useNativeDriver: false,
+					})(evt, gestureState);
+				},
+				onPanResponderRelease: (evt, gestureState) => {
+					//withiout extract base value = 0 so it jump to initial pos
+					//with extract base value = current offset (acumulated distance)
+					if (gestureState.dx > 50) {
+						console.log('1');
+						Animated.spring(card.translate, {
+							toValue: {x: width, y: card.space},
+							speed: 200,
+							useNativeDriver: true,
+						}).start();
+					} else if (gestureState.dx < -50) {
+						console.log('2');
+						Animated.spring(card.translate, {
+							toValue: {x: -width, y: card.space},
+							speed: 200,
+							useNativeDriver: true,
+						}).start();
+					} else {
+//card.translate.setOffset({x: 0, y: 0});
+						console.log('3',card.translate);
+						Animated.spring(card.translate, {
+							toValue: {x: 0, y: card.space},
+							speed: 100,
+							useNativeDriver: true,
+						}).start();
+					}
+				},
+			}),
+		),
 	).current;
+
+	useLayoutEffect(() => {
+		cards.map(card => {
+			card.translate.setValue({x: card.space, y: card.space});
+
+		});
+	}, []);
 	return (
-		<View style={{flex: 1, padding: 20}}>
-			<View
-				style={{
-					flex: 1,
-					justifyContent: 'center',
-					alignItems: 'center',
-					backgroundColor: 'yellow',
-				}}>
-				<View
-					style={{backgroundColor: 'blue'}}
-					ref={textRef}
-					onLayout={event => {
-						textRef.current.measure((x, y, width, height, pageX, pageY) => {
-							console.log('vvv', pageY, y);
-							cords.viewX = pageX;
-								cords.viewY = pageY;
-						});
-						console.log('yy', event.nativeEvent.layout.y);
-					}}>
-					<Text>im a text</Text>
-				</View>
-			</View>
-			<Animated.View
-				{...panResponder.panHandlers}
-				onLayout={event => {
-					cords.pageY1 = event.nativeEvent.layout.x;
-					console.log('yy', event.nativeEvent.layout.x);
-				}}
-				style={{
-					backgroundColor: 'red',
-					width: 200,
-					height: 200,
-					position: 'absolute',
-					opacity: 0.4,
-					transform: [
-						{
-							translateX: translate.x,
-						},
-						{translateY: translate.y},
-					],
-				}}></Animated.View>
+		<View
+			style={{
+				flex: 1,
+				justifyContent: 'center',
+				alignItems: 'center',
+				backgroundColor: 'yellow',
+			}}>
+			{cards.map((e, index) => (
+				<Animated.View
+					{...panResponder[index].panHandlers}
+					key={index}
+					onLayout={event => {}}
+					style={{
+						backgroundColor: e.color,
+						width: 200,
+						height: 200,
+						position: 'absolute',
+						opacity: 0.4,
+						transform: [
+							{
+								translateX: e.translate.x,
+							},
+							{translateY: e.translate.y},
+						],
+					}}></Animated.View>
+			))}
 		</View>
 	);
 };

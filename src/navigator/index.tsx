@@ -4,16 +4,17 @@ import Timer from '../components/timer';
 import Settings from '../components/settings';
 import Tabs from '../components/tabs';
 import Cards from '../components/cards';
+import Input from '../components/input';
+import Messages from '../components/messages';
 import SettingsButton from '../components/shared/SettingsButton';
 import {IStackNavigatorParamList} from './index.d';
 function Navigator(): JSX.Element {
   const stack = createNativeStackNavigator<IStackNavigatorParamList>();
   return (
     <stack.Navigator
-      initialRouteName="Cards"
+      initialRouteName="Messages"
       screenOptions={{headerShown: false}}>
-      <stack.Screen name="Tabs" component={Tabs} />
-      <stack.Screen name="Cards" component={Cards} />
+      <stack.Screen name="Messages" component={Messages} />
       <stack.Screen
         name="Timer"
         component={Timer}
