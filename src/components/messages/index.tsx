@@ -4,17 +4,21 @@ import {View, Animated, Dimensions} from 'react-native';
 const Messages: React.FC<{}> = () => {
 	const {width} = Dimensions.get('window');
 	const fadeAnim = useRef(new Animated.Value(0)).current;
-	const translateAnim = useRef(new Animated.Value(-100)).current;
+	const translateAnim = useRef(new Animated.ValueXY({x: 0, y: +150})).current;
 	useEffect(() => {
-		Animated.timing(fadeAnim, {
-			toValue: 1,
-			duration: 1000,
-			useNativeDriver: true,
-		}).start();
-		Animated.spring(translateAnim, {
-			toValue: 0,
-			useNativeDriver: true,
-		}).start();
+		console.log('translateAnim', translateAnim);
+		Animated.parallel([
+			Animated.timing(fadeAnim, {
+				toValue: 1,
+				duration: 1000,
+				useNativeDriver: true,
+			}),
+			Animated.spring(translateAnim, {
+				toValue: {x: 0, y: 0},
+				speed: 5,
+				useNativeDriver: true,
+			}),
+		]).start();
 	}, []);
 	return (
 		<View style={{flex: 1, justifyContent: 'center', alignItems: 'flex-start'}}>
@@ -26,7 +30,7 @@ const Messages: React.FC<{}> = () => {
 					opacity: fadeAnim,
 					transform: [
 						{
-							translateX: translateAnim,
+							translateY: translateAnim.y,
 						},
 					],
 				}}></Animated.View>

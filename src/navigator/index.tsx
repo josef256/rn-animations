@@ -6,15 +6,20 @@ import Tabs from '../components/tabs';
 import Cards from '../components/cards';
 import Input from '../components/input';
 import Messages from '../components/messages';
+import Wall from '../components/wall';
+import List from '../components/list';
+import Active from '../components/active';
+import Ripple from '../components/ripple';
+import DragDrop from '../components/dragdrop';
 import SettingsButton from '../components/shared/SettingsButton';
 import {IStackNavigatorParamList} from './index.d';
 function Navigator(): JSX.Element {
   const stack = createNativeStackNavigator<IStackNavigatorParamList>();
   return (
     <stack.Navigator
-      initialRouteName="Messages"
+      initialRouteName="Ripple"
       screenOptions={{headerShown: false}}>
-      <stack.Screen name="Messages" component={Messages} />
+      <stack.Screen name="Ripple" component={Ripple} />
       <stack.Screen
         name="Timer"
         component={Timer}

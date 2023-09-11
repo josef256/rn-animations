@@ -38,8 +38,20 @@ const Input: React.FC<{}> = () => {
 				justifyContent: 'space-between',
 			}}>
 			<View
-				style={{flex: 1, backgroundColor: 'green', alignItems: 'flex-end'}}
+				style={{
+					flex: 1,
+					backgroundColor: 'green',
+					alignItems: 'flex-end',
+					margin: 14,
+					height: 100,
+				}}
 				{...panResponder.panHandlers}>
+				<Text
+					style={{
+						zIndex: 9999,
+					}}>
+					my initiql text
+				</Text>
 				<Animated.View
 					onLayout={e => {
 						/*	Animated.spring(translateW, {
@@ -53,8 +65,9 @@ const Input: React.FC<{}> = () => {
 							inputRange: [0, 100],
 							outputRange: ['0%', '100%'],
 						}),
-						height: 100,
+						height: '100%',
 						backgroundColor: 'red',
+						position: 'absolute',
 					}}></Animated.View>
 			</View>
 		</View>
