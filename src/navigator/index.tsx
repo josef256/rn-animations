@@ -17,9 +17,9 @@ function Navigator(): JSX.Element {
   const stack = createNativeStackNavigator<IStackNavigatorParamList>();
   return (
     <stack.Navigator
-      initialRouteName="Ripple"
+      initialRouteName="DragDrop"
       screenOptions={{headerShown: false}}>
-      <stack.Screen name="Ripple" component={Ripple} />
+      <stack.Screen name="DragDrop" component={DragDrop} />
       <stack.Screen
         name="Timer"
         component={Timer}
